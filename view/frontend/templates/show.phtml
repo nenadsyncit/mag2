@@ -1,0 +1,79 @@
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<style>
+table {  font-family: arial, sans-serif;  border-collapse: collapse;  width: 100%;  margin-top: 30px;}
+td, th {  border: 1px solid #dddddd;  text-align: left;  padding: 8px;  }
+tr:nth-child(even) { background-color: #dddddd; }
+.post-id{width:2%} .post-name{width:30%}
+.delete {
+  background:#c05e2f;
+  padding:5px;
+  text-align: center;
+  vertical-align: middle;
+}
+.edit {
+  background:#57843c;
+  padding:5px;
+  text-align: center;
+  text-decoration:none;
+  vertical-align: middle;
+}
+.delete button {
+  color:white;
+  background: #c05e2f;
+  border:none;
+  box-shadow:none;
+}
+.edit a {
+  color:white;
+ 
+}
+.add {
+  background-color: #eb5202;
+}
+</style>
+
+
+<?php echo $block->myUrl ?>
+<a  class=" action primary"  href="<?php echo $block->getUrl('*/*/add')?>">Add</a>
+<table>
+  <tr>
+    <th class="post-id">Id</th>
+    <th class="post-name">Name</th>
+    <th>Content</th>
+    <th>Price</th>
+    <th>created at</th>
+    <th >Delete</th>
+    <th >Edit</th>
+    <th>Image</th>
+    
+  </tr>
+    <?php
+    if(count($block->getProductCollection()) !==0)
+      {                 
+        foreach ($block->getProductCollection() as $key=>$product){
+            echo '<tr>
+                    <td>'.$product->getProductId().'</td>
+                    <td>'.$product->getProductName().'</td>
+                    <td>'.strip_tags($product->getProductContent()).'</td>
+                    <td>'.$product->getProductPrice().'</td>
+                    <td>'.$product->getCreatedAt().'</td>
+                    <td class="delete">
+                    <form action="'.$block->escapeUrl($block->getFormAction()).'">
+                    <input type="hidden" name="id" id="hideit" value="'.$product->getProductId().'" />
+                    <button type="submit" title="DELETE" class="action submit">
+                    <span><i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+                    </span>
+                    </button>
+                    </form>
+                    </td>
+                    
+                    <td class="edit"><a href="'.$block->getUrl('*/*/edit',['id'=>$product->getProductId()]).'" ><i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
+                    </a></td>
+                    <td><img src="'.$block->getImagePath().$product->getProductImage().'" width="30px" height="30px"></td>
+                  </tr>';
+        }
+    } else {
+        echo '<p><b>There are no products yet, add new product!</b></p>';
+    }
+    ?>
+</table>
