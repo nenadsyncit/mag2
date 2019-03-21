@@ -2,7 +2,7 @@
     "name": "syncit/products",
     "description": "Simple CRUD module",
     "type": "magento2-module",
-    "version": "1.0.0-dev",
+    "version": "1.0.0",
     "minimum-stability":"dev",
     "license": [
       "OSL-3.0",
